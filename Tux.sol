@@ -151,7 +151,6 @@ contract TuxNixNFT is ERC721Enumerable, PaymentSplitter, Ownable, ReentrancyGuar
     * @notice Allows to change the sellinStep to Sale
     **/
     function setUpSale() external onlyOwner {
-        require(sellingStep == Steps.Presale, "First the presale, then the sale.");
         sellingStep = Steps.Sale;
     }
 
