@@ -19,7 +19,7 @@ contract TuxNixNFT is ERC721Enumerable, PaymentSplitter, Ownable, ReentrancyGuar
     Counters.Counter private _nftIdCounter;
 
     //Number of NFTs in the collection
-    uint public constant MAX_SUPPLY = 100;
+    uint public constant MAX_SUPPLY = 5;
     //Maximum number of NFTs an address can mint
     uint public max_mint_allowed = 3;
     //Price of one NFT in sale
@@ -55,21 +55,21 @@ contract TuxNixNFT is ERC721Enumerable, PaymentSplitter, Ownable, ReentrancyGuar
     mapping(address => uint) nftsPerWallet;
 
     //Addresses of all the members of the team
-    address[] private _team = [
-        teamAdress,
-        teamAdress,
-        teamAdress
-    ];
-
-    //Shares of all the members of the team
-    uint[] private _teamShares = [
-        70,
-        20, 
-        10
-    ];
+    //address public _teamAddress = ;
+    //address public _teamAddress = ;
+    address public _teamAddress = 0x03cBd54271fF88D0970f1FAB2e3dE5420b1982B2;
+    
+    /**
+    * @notice Allows to whithdraw found on the contract
+    **/
+    function withdraw() external onlyOwner {
+            //payable(_teamAddress).transfer(address(this).balance *  5 /100);
+            //payable(_teamAddress).transfer(address(this).balance * 3 / 100);
+            payable(_teamAddress).transfer(address(this).balance);
+    }
 
     //Constructor of the collection
-    constructor(string memory _theBaseURI, string memory _notRevealedURI) ERC721("TUX*NIX", "TNIX") PaymentSplitter(_team, _teamShares) {
+    constructor(string memory _theBaseURI, string memory _notRevealedURI) ERC721("TUX*NIX", "TNIX") {
         _nftIdCounter.increment();
         transferOwnership(msg.sender);
         sellingStep = Steps.Before;
